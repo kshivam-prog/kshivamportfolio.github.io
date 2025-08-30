@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shivam Paswan - B.Tech CSE Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
@@ -15,7 +15,8 @@
                         'dark-chocolate': '#5D2F0A',
                         'light-chocolate': '#D2B48C',
                         'cream': '#F5F5DC',
-                        'coffee': '#6F4E37'
+                        'coffee': '#6F4E37',
+                        'ink': '#0B1324'
                     }
                 }
             }
@@ -24,29 +25,128 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
-        .gradient-bg { background: linear-gradient(135deg, #8B4513 0%, #5D2F0A 100%); }
-        .card-hover { transition: all 0.3s ease; }
-        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+        /* Import formal font */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap');
+
+/* Header container */
+header {
+  background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
+  color: #a05656;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+  border-bottom: 3px solid #8b5e3c; /* subtle accent */
+}
+
+/* Name / Logo */
+header h1 {
+  margin: 0;
+  font-family: 'Merriweather', serif;
+  font-weight: 700;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+}
+
+/* Navigation */
+header nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 25px;
+}
+
+header nav ul li a {
+  text-decoration: none;
+  color: #7c4242;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+  padding-bottom: 2px;
+}
+
+header nav ul li a:hover {
+  color: #deb887; /* soft highlight */
+  border-bottom: 2px solid #deb887;
+}
+
+/* Animated Skill Bars */
+.skill-bar {
+  width: 100%;
+  height: 12px;
+  background: #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.skill-level {
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #fd9f68, #d1974c);
+  border-radius: 6px;
+  transition: width 2s ease-in-out;
+}
+
+
+        /* Base visuals */
+        .gradient-bg { background: linear-gradient(135deg, #0B1324 0%, #5D2F0A 55%, #8B4513 100%); }
+        .card-hover { transition: transform .35s ease, box-shadow .35s ease; }
+        .card-hover:hover { transform: translateY(-6px); box-shadow: 0 18px 45px -12px rgba(0,0,0,.35); }
+        .soft-shadow { box-shadow: 0 10px 30px rgba(11, 19, 36, .12); }
+        .glass { backdrop-filter: blur(6px); background: linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,.12)); }
+        .ring-fancy { box-shadow: inset 0 0 0 1px rgba(139,69,19,.25), 0 0 0 6px rgba(139,69,19,.08); }
+        
+        /* Messages */
         .loading { opacity: 0.7; pointer-events: none; }
         .success-message { color: #10B981; background-color: #D1FAE5; }
         .error-message { color: #EF4444; background-color: #FEE2E2; }
         .message { padding: 12px; border-radius: 8px; margin-top: 16px; display: none; }
+
+        /* Reveal on scroll */
+        .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* Fancy underline hover for nav */
+        .nav-link { position: relative; }
+        .nav-link:after { content:""; position:absolute; left:0; bottom:-6px; width:0; height:2px; background:#8B4513; transition: width .25s ease; }
+        .nav-link:hover:after { width:100%; }
+
+        /* Unique section div boxes */
+        .info-card { position: relative; border-radius: 18px; background: #fff; }
+        /*.info-card:before { content:""; position:absolute; inset:-1px; border-radius: 20px; padding:1px; background: linear-gradient(140deg, rgba(139,69,19,.45), rgba(111,78,55,.25), rgba(245,245,220,.8)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }*/
+        .info-card {
+  position: relative;
+  border-radius: 20px;
+  border: 3px solid transparent;
+  background: 
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(140deg, rgba(139,69,19,.45), rgba(111,78,55,.25), rgba(245,245,220,.8)) border-box;
+}
+
+        /* Button micro-anim */
+        @keyframes pulseBorder { 0% { box-shadow: 0 0 0 0 rgba(139,69,19,.35);} 100% { box-shadow: 0 0 0 14px rgba(139,69,19,0);} }
+        .btn-pulse:hover { animation: pulseBorder .8s ease-out forwards; }
     </style>
 </head>
 <body class="bg-cream">
     <!-- Navigation -->
-    <nav class="bg-white shadow-sm fixed w-full top-0 z-50">
+    <nav class="bg-white/90 backdrop-blur-md shadow-sm fixed w-full top-0 z-50">
         <div class="max-w-6xl mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
-                <div class="text-2xl font-bold text-chocolate">Shivam Paswan</div>
+                <div class="text-2xl font-bold text-ink">Shivam Paswan</div>
                 <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="text-gray-700 hover:text-chocolate transition-colors">Home</a>
-                    <a href="#about" class="text-gray-700 hover:text-chocolate transition-colors">About</a>
-                    <a href="#projects" class="text-gray-700 hover:text-chocolate transition-colors">Projects</a>
-                    <a href="#skills" class="text-gray-700 hover:text-chocolate transition-colors">Skills</a>
-                    <a href="#contact" class="text-gray-700 hover:text-chocolate transition-colors">Contact</a>
+                    <a href="#home" class="nav-link text-gray-700 hover:text-chocolate transition-colors">Home</a>
+                    <a href="#about" class="nav-link text-gray-700 hover:text-chocolate transition-colors">About</a>
+                    <a href="#education" class="nav-link text-gray-700 hover:text-chocolate transition-colors">Education</a>
+                    <a href="#projects" class="nav-link text-gray-700 hover:text-chocolate transition-colors">Projects</a>
+                    <a href="#skills" class="nav-link text-gray-700 hover:text-chocolate transition-colors">Skills</a>
+                    <a href="#contact" class="nav-link text-gray-700 hover:text-chocolate transition-colors">Contact</a>
                 </div>
-                <button class="md:hidden text-gray-700" onclick="toggleMenu()">
+                <button class="md:hidden text-gray-700" onclick="toggleMenu()" aria-label="Toggle menu">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
@@ -55,6 +155,7 @@
             <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
                 <a href="#home" class="block text-gray-700 hover:text-chocolate transition-colors py-2">Home</a>
                 <a href="#about" class="block text-gray-700 hover:text-chocolate transition-colors py-2">About</a>
+                <a href="#education" class="block text-gray-700 hover:text-chocolate transition-colors py-2">Education</a>
                 <a href="#projects" class="block text-gray-700 hover:text-chocolate transition-colors py-2">Projects</a>
                 <a href="#skills" class="block text-gray-700 hover:text-chocolate transition-colors py-2">Skills</a>
                 <a href="#contact" class="block text-gray-700 hover:text-chocolate transition-colors py-2">Contact</a>
@@ -65,19 +166,19 @@
     <!-- Hero Section -->
     <section id="home" class="gradient-bg min-h-screen flex items-center pt-16">
         <div class="max-w-6xl mx-auto px-6 text-center text-white">
-            <div class="mb-8">
-                <div class="w-32 h-32 mx-auto mb-6 rounded-full bg-white/20 overflow-hidden border-4 border-white/30">
+            <div class="mb-8 reveal">
+                <div class="w-32 h-32 mx-auto mb-6 rounded-full glass overflow-hidden border-4 border-white/30 ring-fancy">
                     <div class="w-full h-full bg-gradient-to-br from-light-chocolate to-chocolate flex items-center justify-center text-4xl">👨‍💻</div>
                 </div>
                 <h1 class="text-5xl md:text-6xl font-bold mb-4">Shivam Paswan</h1>
                 <p class="text-xl md:text-2xl mb-2 opacity-90">B.Tech Computer Science Engineering</p>
-                <p class="text-lg opacity-80">AI Enthusiast | Content Editor | Smart Work Advocate</p>
+                <p class="text-lg opacity-90">AI Enthusiast • Content Editor • Smart Work Advocate</p>
             </div>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button onclick="scrollToSection('projects')" class="bg-light-chocolate hover:bg-chocolate text-black px-8 py-3 rounded-full font-medium transition-colors">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center reveal">
+                <button onclick="scrollToSection('projects')" class="btn-pulse bg-light-chocolate hover:bg-chocolate text-black px-8 py-3 rounded-full font-medium transition-colors">
                     View My Work
                 </button>
-                <button onclick="scrollToSection('contact')" class="border-2 border-white text-white hover:bg-white hover:text-chocolate px-8 py-3 rounded-full font-medium transition-colors">
+                <button onclick="scrollToSection('contact')" class="btn-pulse border-2 border-white text-white hover:bg-white hover:text-chocolate px-8 py-3 rounded-full font-medium transition-colors">
                     Get In Touch
                 </button>
             </div>
@@ -87,19 +188,19 @@
     <!-- About Section -->
     <section id="about" class="py-20 bg-white">
         <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">About Me</h2>
+            <h2 class="text-4xl font-bold text-center mb-16 text-gray-800 reveal">About Me</h2>
             <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <div class="w-64 h-64 mx-auto bg-gradient-to-br from-light-chocolate to-chocolate rounded-2xl flex items-center justify-center text-8xl">
+                <div class="reveal">
+                    <div class="w-64 h-64 mx-auto bg-gradient-to-br from-light-chocolate to-chocolate rounded-2xl flex items-center justify-center text-8xl soft-shadow">
                         🤖
                     </div>
                 </div>
-                <div class="space-y-6">
+                <div class="space-y-6 reveal">
                     <p class="text-lg text-gray-700 leading-relaxed">
-                        I'm a passionate B.Tech Computer Science Engineering student who believes in working smart, not hard. My expertise lies in leveraging AI tools and automation to streamline workflows and maximize productivity in content creation and editing.
+                        I'm a passionate B.Tech Computer Science Engineering student who believes in working smart. I leverage AI tools and automation to streamline workflows and maximize productivity in content creation and editing.
                     </p>
                     <p class="text-lg text-gray-700 leading-relaxed">
-                        I specialize in using cutting-edge AI tools for content editing, video production, and creative workflows. My philosophy is simple: why spend hours on manual tasks when intelligent automation can deliver better results in minutes?
+                        I specialize in using cutting-edge AI tools for content editing, video production, and creative workflows. Why spend hours on manual tasks when intelligent automation can deliver results in minutes?
                     </p>
                     <div class="grid grid-cols-2 gap-4 mt-8">
                         <div class="text-center p-4 bg-light-chocolate/20 rounded-lg">
@@ -116,13 +217,105 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="py-20 bg-cream/50">
+    <!-- Education & Leadership Section (NEW) -->
+    <section id="education" class="py-20 bg-cream/60">
         <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">Featured Projects</h2>
+            <h2 class="text-4xl font-bold text-center mb-14 text-gray-800 reveal">Education & Leadership</h2>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Column 1: Education Timeline -->
+                <div class="info-card p-6 soft-shadow reveal">
+                    <h3 class="text-xl font-semibold text-ink mb-4">Education</h3>
+                    <div class="space-y-5">
+                        <div class="p-4 rounded-xl bg-white border border-light-chocolate/40 hover:border-chocolate transition-colors">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="font-medium text-chocolate">10th Board</span>
+                                <span class="text-sm text-gray-600">2021</span>
+                            </div>
+                            <p class="text-gray-700 text-sm">Successfully completed secondary education (Class X) with 79.8%.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-white border border-light-chocolate/40 hover:border-chocolate transition-colors">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="font-medium text-chocolate">12th Board</span>
+                                <span class="text-sm text-gray-600">2023</span>
+                            </div>
+                            <p class="text-gray-700 text-sm">Completed higher secondary education (Class XII) with 74% .</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 2: Programming Skills (Requested) -->
+                <!-- Column 2: Programming Skills (Animated) -->
+<div class="info-card p-6 soft-shadow reveal">
+  <h3 class="text-xl font-semibold text-ink mb-4">Core Programming Skills</h3>
+  <div class="space-y-5">
+    
+    <div>
+      <div class="flex justify-between text-sm mb-1">
+        <span class="font-medium">C Language</span>
+        <span class="text-gray-600">Intermediate</span>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-level" data-skill="80"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="flex justify-between text-sm mb-1">
+        <span class="font-medium">Python</span>
+        <span class="text-gray-600">Intermediate</span>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-level" data-skill="70"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="flex justify-between text-sm mb-1">
+        <span class="font-medium">HTML & CSS</span>
+        <span class="text-gray-600">High Level</span>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-level" data-skill="90"></div>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap gap-2 pt-2">
+      <span class="px-3 py-1 rounded-full text-xs bg-light-chocolate/30">Responsive UI</span>
+      <span class="px-3 py-1 rounded-full text-xs bg-light-chocolate/30">Animations</span>
+      <span class="px-3 py-1 rounded-full text-xs bg-light-chocolate/30">Accessibility</span>
+    </div>
+
+  </div>
+</div>
+
+
+                <!-- Column 3: Leadership/Coordination -->
+                <div class="info-card p-6 soft-shadow reveal">
+                    <h3 class="text-xl font-semibold text-ink mb-4">Leadership & Coordination</h3>
+                    <ul class="space-y-4">
+                        <li class="p-4 rounded-xl bg-white border border-light-chocolate/40 hover:border-chocolate transition-colors">
+                            <p class="text-gray-800"><span class="font-semibold">Experienced Coordinator</span> of <span class="font-medium">Summer Exchange Program</span>.</p>
+                        </li>
+                        <li class="p-4 rounded-xl bg-white border border-light-chocolate/40 hover:border-chocolate transition-colors">
+                            <p class="text-gray-800">Guided and dealt with <span class="font-semibold">foreign professors</span> and <span class="font-semibold">delegates</span> for academic collaborations and events.</p>
+                        </li>
+                        <li class="p-4 rounded-xl bg-white border border-light-chocolate/40 hover:border-chocolate transition-colors">
+                            <p class="text-gray-800">Strong communication, stakeholder management, and cross-cultural coordination.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16 text-gray-800 reveal">Featured Projects</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Project 1 -->
-                <div class="bg-white rounded-xl shadow-lg card-hover overflow-hidden">
+                <div class="bg-white rounded-xl soft-shadow card-hover overflow-hidden reveal">
                     <div class="h-48 bg-gradient-to-br from-light-chocolate to-chocolate flex items-center justify-center text-6xl">
                         🎬
                     </div>
@@ -146,7 +339,7 @@
                 </div>
 
                 <!-- Project 2 -->
-                <div class="bg-white rounded-xl shadow-lg card-hover overflow-hidden">
+                <div class="bg-white rounded-xl soft-shadow card-hover overflow-hidden reveal">
                     <div class="h-48 bg-gradient-to-br from-coffee to-dark-chocolate flex items-center justify-center text-6xl">
                         ✍️
                     </div>
@@ -170,7 +363,7 @@
                 </div>
 
                 <!-- Project 3 -->
-                <div class="bg-white rounded-xl shadow-lg card-hover overflow-hidden">
+                <div class="bg-white rounded-xl soft-shadow card-hover overflow-hidden reveal">
                     <div class="h-48 bg-gradient-to-br from-light-chocolate to-coffee flex items-center justify-center text-6xl">
                         ⚡
                     </div>
@@ -199,54 +392,46 @@
     <!-- Skills Section -->
     <section id="skills" class="py-20 bg-white">
         <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">Technical Skills</h2>
+            <h2 class="text-4xl font-bold text-center mb-16 text-gray-800 reveal">Technical Skills</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="text-center">
-                    <div class="w-20 h-20 mx-auto mb-4 bg-light-chocolate/20 rounded-full flex items-center justify-center text-3xl">
-                        🤖
-                    </div>
+                <div class="text-center info-card p-6 soft-shadow reveal">
+                    <div class="w-20 h-20 mx-auto mb-4 bg-light-chocolate/20 rounded-full flex items-center justify-center text-3xl">🤖</div>
                     <h3 class="text-lg font-semibold mb-3 text-gray-800">AI Tools</h3>
-                    <div class="space-y-2">
-                        <div class="text-sm text-gray-600">ChatGPT</div>
-                        <div class="text-sm text-gray-600">Claude</div>
-                        <div class="text-sm text-gray-600">Midjourney</div>
-                        <div class="text-sm text-gray-600">Runway ML</div>
+                    <div class="space-y-2 text-sm text-gray-700">
+                        <div>ChatGPT</div>
+                        <div>Claude</div>
+                        <div>Midjourney</div>
+                        <div>Runway ML</div>
                     </div>
                 </div>
-                <div class="text-center">
-                    <div class="w-20 h-20 mx-auto mb-4 bg-chocolate/20 rounded-full flex items-center justify-center text-3xl">
-                        ✂️
-                    </div>
+                <div class="text-center info-card p-6 soft-shadow reveal">
+                    <div class="w-20 h-20 mx-auto mb-4 bg-chocolate/20 rounded-full flex items-center justify-center text-3xl">✂️</div>
                     <h3 class="text-lg font-semibold mb-3 text-gray-800">Content Editing</h3>
-                    <div class="space-y-2">
-                        <div class="text-sm text-gray-600">Adobe Premiere</div>
-                        <div class="text-sm text-gray-600">DaVinci Resolve</div>
-                        <div class="text-sm text-gray-600">Canva Pro</div>
-                        <div class="text-sm text-gray-600">Figma</div>
+                    <div class="space-y-2 text-sm text-gray-700">
+                        <div>Adobe Premiere</div>
+                        <div>DaVinci Resolve</div>
+                        <div>Canva Pro</div>
+                        <div>Figma</div>
                     </div>
                 </div>
-                <div class="text-center">
-                    <div class="w-20 h-20 mx-auto mb-4 bg-coffee/20 rounded-full flex items-center justify-center text-3xl">
-                        ⚡
-                    </div>
+                <div class="text-center info-card p-6 soft-shadow reveal">
+                    <div class="w-20 h-20 mx-auto mb-4 bg-coffee/20 rounded-full flex items-center justify-center text-3xl">⚡</div>
                     <h3 class="text-lg font-semibold mb-3 text-gray-800">Automation</h3>
-                    <div class="space-y-2">
-                        <div class="text-sm text-gray-600">Zapier</div>
-                        <div class="text-sm text-gray-600">Make.com</div>
-                        <div class="text-sm text-gray-600">IFTTT</div>
-                        <div class="text-sm text-gray-600">Python Scripts</div>
+                    <div class="space-y-2 text-sm text-gray-700">
+                        <div>Zapier</div>
+                        <div>Make.com</div>
+                        <div>IFTTT</div>
+                        <div>Python Scripts</div>
                     </div>
                 </div>
-                <div class="text-center">
-                    <div class="w-20 h-20 mx-auto mb-4 bg-dark-chocolate/20 rounded-full flex items-center justify-center text-3xl">
-                        📊
-                    </div>
+                <div class="text-center info-card p-6 soft-shadow reveal">
+                    <div class="w-20 h-20 mx-auto mb-4 bg-dark-chocolate/20 rounded-full flex items-center justify-center text-3xl">📊</div>
                     <h3 class="text-lg font-semibold mb-3 text-gray-800">Productivity</h3>
-                    <div class="space-y-2">
-                        <div class="text-sm text-gray-600">Notion AI</div>
-                        <div class="text-sm text-gray-600">Obsidian</div>
-                        <div class="text-sm text-gray-600">Airtable</div>
-                        <div class="text-sm text-gray-600">Calendly</div>
+                    <div class="space-y-2 text-sm text-gray-700">
+                        <div>Notion AI</div>
+                        <div>Obsidian</div>
+                        <div>Airtable</div>
+                        <div>Calendly</div>
                     </div>
                 </div>
             </div>
@@ -254,11 +439,11 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-cream/50">
+    <section id="contact" class="py-20 bg-cream/60">
         <div class="max-w-4xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">Get In Touch</h2>
+            <h2 class="text-4xl font-bold text-center mb-16 text-gray-800 reveal">Get In Touch</h2>
             <div class="grid md:grid-cols-2 gap-12">
-                <div>
+                <div class="reveal">
                     <h3 class="text-2xl font-semibold mb-6 text-gray-800">Let's Work Smart Together!</h3>
                     <p class="text-gray-600 mb-8">
                         Ready to revolutionize your workflow with AI? Here's how to contact me:
@@ -291,7 +476,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-white rounded-xl shadow-lg p-8">
+                <div class="bg-white rounded-xl soft-shadow p-8 reveal">
                     <form id="contact-form" class="space-y-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Name *</label>
@@ -309,6 +494,11 @@
                             <label class="block text-sm font-medium text-gray-700 mb-2">Message *</label>
                             <textarea rows="4" id="message" name="message" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-chocolate focus:border-transparent" placeholder="Tell me about your project or how I can help..."></textarea>
                         </div>
+                        <!-- NEW: Actual submit button to match existing JS logic -->
+                        <button type="submit" id="submit-btn" class="w-full bg-ink hover:bg-chocolate text-white py-3 rounded-lg font-medium transition-colors flex items-center justify-center gap-2">
+                            <span id="btn-text">Send via EmailJS</span>
+                            <svg id="btn-loading" class="w-5 h-5 animate-spin hidden" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>
+                        </button>
                         <button type="button" id="copy-email-btn" class="w-full bg-chocolate hover:bg-dark-chocolate text-white py-3 rounded-lg font-medium transition-colors mb-3">
                             📋 Copy Email Content
                         </button>
@@ -328,38 +518,29 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
+    <footer class="bg-gray-900 text-white py-12">
         <div class="max-w-6xl mx-auto px-6 text-center">
-            <div class="mb-8">
-                <h3 class="text-2xl font-bold mb-4">Shivam Paswan</h3>
+            <div class="mb-8 reveal">
+                <h3 class="text-2xl font-bold mb-2">Shivam Paswan</h3>
                 <p class="text-gray-400">B.Tech CSE Student | AI Enthusiast | Content Editor</p>
                 <p class="text-sm text-gray-500 mt-2">Available for freelance projects and collaborations</p>
             </div>
-            <div class="flex justify-center space-x-6 mb-8">
-                <a href="mailto:kshivam71840@gmail.com" class="w-12 h-12 bg-light-chocolate/20 hover:bg-light-chocolate/30 rounded-full flex items-center justify-center transition-colors" title="Email">
-                    📧
-                </a>
-                <a href="https://linkedin.com/in/shivam-kumar-589256351" target="_blank" class="w-12 h-12 bg-chocolate/20 hover:bg-chocolate/30 rounded-full flex items-center justify-center transition-colors" title="LinkedIn">
-                    💼
-                </a>
-                <a href="tel:+919263775454" class="w-12 h-12 bg-coffee/20 hover:bg-coffee/30 rounded-full flex items-center justify-center transition-colors" title="Phone">
-                    📱
-                </a>
-                <button onclick="scrollToSection('contact')" class="w-12 h-12 bg-dark-chocolate/20 hover:bg-dark-chocolate/30 rounded-full flex items-center justify-center transition-colors" title="Contact Form">
-                    💬
-                </button>
+            <div class="flex justify-center space-x-6 mb-8 reveal">
+                <a href="mailto:kshivam71840@gmail.com" class="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors" title="Email">📧</a>
+                <a href="https://linkedin.com/in/shivam-kumar-589256351" target="_blank" class="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors" title="LinkedIn">💼</a>
+                <a href="tel:+919263775454" class="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors" title="Phone">📱</a>
+                <button onclick="scrollToSection('contact')" class="w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors" title="Contact Form">💬</button>
             </div>
-            <div class="border-t border-gray-700 pt-8">
+            <div class="border-t border-white/10 pt-8">
                 <p class="text-gray-400">&copy; 2024 Shivam Paswan. All rights reserved. | Ready to work smart together!</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Initialize EmailJS
+        // Initialize EmailJS (unchanged keys/logic)
         (function() {
-            // Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
-            emailjs.init('pvvIv8lUsjvoBPEny'); // You need to get this from emailjs.com
+            emailjs.init('pvvIv8lUsjvoBPEny');
         })();
 
         function toggleMenu() {
@@ -371,11 +552,7 @@
             const element = document.getElementById(sectionId);
             const navHeight = 80;
             const elementPosition = element.offsetTop - navHeight;
-            
-            window.scrollTo({
-                top: elementPosition,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: elementPosition, behavior: 'smooth' });
         }
 
         function contactForDemo(projectName) {
@@ -390,7 +567,7 @@
             document.getElementById('message').value = `Hi Shivam,\n\nI'd like to learn more about the code implementation for your ${projectName} project. Are you able to share the repository or discuss the technical details?\n\nBest regards,`;
         }
 
-        // Smooth scrolling for navigation links
+        // Smooth scrolling for navigation links (unchanged)
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -398,31 +575,23 @@
                 if (target) {
                     const navHeight = 80;
                     const elementPosition = target.offsetTop - navHeight;
-                    
-                    window.scrollTo({
-                        top: elementPosition,
-                        behavior: 'smooth'
-                    });
+                    window.scrollTo({ top: elementPosition, behavior: 'smooth' });
                 }
             });
         });
 
-        // Form submission with EmailJS
+        // Form submission with EmailJS (original logic preserved; now button exists)
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            
             const submitBtn = document.getElementById('submit-btn');
             const btnText = document.getElementById('btn-text');
             const btnLoading = document.getElementById('btn-loading');
             const formMessage = document.getElementById('form-message');
-            
-            // Show loading state
             submitBtn.classList.add('loading');
             btnText.classList.add('hidden');
             btnLoading.classList.remove('hidden');
             formMessage.style.display = 'none';
-            
-            // Get form data
+
             const formData = {
                 user_name: document.getElementById('user_name').value,
                 user_email: document.getElementById('user_email').value,
@@ -431,17 +600,14 @@
                 to_name: 'Shivam Paswan',
                 reply_to: document.getElementById('user_email').value
             };
-            
-            // Send email using EmailJS
-            // You need to replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with actual values from EmailJS
+
             emailjs.send('service_g9bwt1g', 'template_61hqcii', formData)
                 .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
-                    showMessage('Thank you! Your message has been sent successfully. I\'ll get back to you soon!', 'success');
+                    showMessage("Thank you! Your message has been sent successfully. I'll get back to you soon!", 'success');
                     document.getElementById('contact-form').reset();
                 }, function(error) {
                     console.log('FAILED...', error);
-                    // Fallback to mailto if EmailJS fails
                     const subject = encodeURIComponent(formData.subject);
                     const body = encodeURIComponent(`Name: ${formData.user_name}\nEmail: ${formData.user_email}\n\nMessage:\n${formData.message}`);
                     const mailtoLink = `mailto:kshivam71840@gmail.com?subject=${subject}&body=${body}`;
@@ -449,7 +615,6 @@
                     showMessage('Opening your default email client...', 'success');
                 })
                 .finally(function() {
-                    // Reset button state
                     submitBtn.classList.remove('loading');
                     btnText.classList.remove('hidden');
                     btnLoading.classList.add('hidden');
@@ -461,84 +626,84 @@
             formMessage.textContent = text;
             formMessage.className = `message ${type}-message`;
             formMessage.style.display = 'block';
-            
-            // Hide message after 5 seconds
-            setTimeout(() => {
-                formMessage.style.display = 'none';
-            }, 5000);
+            setTimeout(() => { formMessage.style.display = 'none'; }, 5000);
         }
 
-        // Copy email content to clipboard
+        // Copy email content to clipboard (unchanged)
         document.getElementById('copy-email-btn').addEventListener('click', function() {
             const name = document.getElementById('user_name').value || 'Unknown';
             const email = document.getElementById('user_email').value || '';
             const subject = document.getElementById('subject').value || 'Portfolio Contact';
             const message = document.getElementById('message').value || '';
-            
-            if (!name || !email || !message) {
-                showMessage('Please fill in Name, Email, and Message fields first.', 'error');
-                return;
-            }
-            
+            if (!name || !email || !message) { showMessage('Please fill in Name, Email, and Message fields first.', 'error'); return; }
             const emailContent = `To: kshivam71840@gmail.com\nSubject: ${subject} - From ${name}\n\nHi Shivam,\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}\n\n---\nSent from your portfolio website`;
-            
-            // Copy to clipboard
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(emailContent).then(() => {
-                    showMessage('✅ Email content copied! Now click "Open Gmail" below and paste it in a new email.', 'success');
-                }).catch(() => {
-                    showTextArea(emailContent);
-                });
-            } else {
-                showTextArea(emailContent);
-            }
+            if (navigator.clipboard) { navigator.clipboard.writeText(emailContent).then(() => { showMessage('✅ Email content copied! Now click "Open Gmail" below and paste it in a new email.', 'success'); }).catch(() => { showTextArea(emailContent); }); }
+            else { showTextArea(emailContent); }
         });
-        
-        // Open Gmail in new tab
+
+        // Open Gmail (unchanged)
         document.getElementById('open-gmail-btn').addEventListener('click', function() {
             window.open('https://mail.google.com/mail/', '_blank');
             showMessage('Gmail opened in new tab. Paste the copied content and send!', 'success');
         });
-        
-        // WhatsApp message
+
+        // WhatsApp message (unchanged)
         document.getElementById('whatsapp-btn').addEventListener('click', function() {
             const name = document.getElementById('user_name').value || 'Unknown';
             const email = document.getElementById('user_email').value || '';
             const subject = document.getElementById('subject').value || 'Portfolio Inquiry';
             const message = document.getElementById('message').value || '';
-            
             const whatsappText = `Hi Shivam! I'm ${name} (${email}). ${subject}: ${message}`;
             const whatsappUrl = `https://wa.me/919263775454?text=${encodeURIComponent(whatsappText)}`;
-            
             window.open(whatsappUrl, '_blank');
             showMessage('WhatsApp opened! Send the pre-filled message.', 'success');
         });
-        
-        // Show textarea fallback for copying
+
         function showTextArea(content) {
             const textarea = document.createElement('textarea');
-            textarea.value = content;
-            textarea.style.position = 'fixed';
-            textarea.style.left = '-9999px';
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-            showMessage('✅ Email content copied to clipboard! Open Gmail and paste it.', 'success');
+            textarea.value = content; textarea.style.position = 'fixed'; textarea.style.left = '-9999px';
+            document.body.appendChild(textarea); textarea.select(); document.execCommand('copy');
+            document.body.removeChild(textarea); showMessage('✅ Email content copied to clipboard! Open Gmail and paste it.', 'success');
         }
 
-        // Add some interactive feedback
+        // Add focus feedback (unchanged)
         document.querySelectorAll('input, textarea').forEach(field => {
-            field.addEventListener('focus', function() {
-                this.style.borderColor = '#8B4513';
-                this.style.boxShadow = '0 0 0 3px rgba(139, 69, 19, 0.1)';
-            });
-            
-            field.addEventListener('blur', function() {
-                this.style.borderColor = '#d1d5db';
-                this.style.boxShadow = 'none';
-            });
+            field.addEventListener('focus', function() { this.style.borderColor = '#8B4513'; this.style.boxShadow = '0 0 0 3px rgba(139, 69, 19, 0.1)'; });
+            field.addEventListener('blur', function() { this.style.borderColor = '#d1d5db'; this.style.boxShadow = 'none'; });
         });
-    </script>
+
+        // Lightweight scroll reveal (NEW – independent of existing logic)
+       const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+</script>
+
+<script>
+  // Skill bar animation
+  const skillLevels = document.querySelectorAll('.skill-level');
+
+  const skillObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const bar = entry.target;
+        const level = bar.getAttribute('data-skill') + '%';
+        bar.style.width = level;
+      } else {
+        entry.target.style.width = '0'; // reset when out of view
+      }
+    });
+  }, { threshold: 0.5 });
+
+  skillLevels.forEach(bar => skillObserver.observe(bar));
+  
+</script>
+
+    
 </body>
 </html>
